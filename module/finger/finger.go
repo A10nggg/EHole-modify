@@ -3,6 +3,7 @@ package finger
 import (
 	"ehole/module/finger/source"
 	"ehole/module/queue"
+	webScan "ehole/module/webScan"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -31,6 +32,7 @@ type FinScan struct {
 	AllResult   []Outrestul
 	FocusResult []Outrestul
 	Finpx       *Packjson
+	Poctargets  []string
 }
 
 func NewScan(urls []string, thread int, output string, proxy string) *FinScan {
@@ -57,7 +59,7 @@ func NewScan(urls []string, thread int, output string, proxy string) *FinScan {
 	return s
 }
 
-func (s *FinScan) StartScan() {
+func (s *FinScan) StartScan(nopac bool) {
 	for i := 0; i <= s.Thread; i++ {
 		s.Wg.Add(1)
 		go func() {
@@ -66,15 +68,25 @@ func (s *FinScan) StartScan() {
 		}()
 	}
 	s.Wg.Wait()
-	color.RGBStyleFromString("244,211,49").Println("\n重点资产：")
+	if len(s.FocusResult) > 0 {
+		color.RGBStyleFromString("244,211,49").Println("\n重点资产：")
+	}
+
 	for _, aas := range s.FocusResult {
 		fmt.Printf(fmt.Sprintf("[ %s | ", aas.Url))
 		color.RGBStyleFromString("237,64,35").Printf(fmt.Sprintf("%s", aas.Cms))
 		fmt.Printf(fmt.Sprintf(" | %s | %d | %d | %s ]\n", aas.Server, aas.Statuscode, aas.Length, aas.Title))
 	}
+	if nopac == false {
+
+		color.RGBStyleFromString("244,211,49").Println("\nStart Pocscan:\n")
+		webScan.WebScan(s.Poctargets)
+		color.RGBStyleFromString("244,211,49").Println("\nEnd Pocscan.\n")
+	}
 	if s.Output != "" {
 		outfile(s.Output, s.AllResult)
 	}
+
 }
 
 func MapToJson(param map[string][]string) string {
@@ -163,6 +175,7 @@ func (s *FinScan) fingerScan() {
 			cmss := strings.Join(cms, ",")
 			out := Outrestul{data.url, cmss, data.server, data.statuscode, data.length, data.title}
 			s.AllResult = append(s.AllResult, out)
+			s.Poctargets = append(s.Poctargets, data.url)
 			if len(out.Cms) != 0 {
 				outstr := fmt.Sprintf("[ %s | %s | %s | %d | %d | %s ]", out.Url, out.Cms, out.Server, out.Statuscode, out.Length, out.Title)
 				color.RGBStyleFromString("237,64,35").Println(outstr)
@@ -171,6 +184,7 @@ func (s *FinScan) fingerScan() {
 				outstr := fmt.Sprintf("[ %s | %s | %s | %d | %d | %s ]", out.Url, out.Cms, out.Server, out.Statuscode, out.Length, out.Title)
 				fmt.Println(outstr)
 			}
+
 		default:
 			continue
 		}

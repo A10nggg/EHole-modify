@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+	http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,7 +35,8 @@ var rootCmd = &cobra.Command{
 		"   / __/ / __  / __ `/ _ \\/ / / _ \\/ __ `/ __ `__ \\\n" +
 		"  / /___/ /_/ / /_/ /  __/ / /  __/ /_/ / / / / / /\n" +
 		" /_____/\\__,_/\\__, /\\___/_/  \\___/\\__,_/_/ /_/ /_/ \n" +
-		"			 /____/ https://forum.ywhack.com  By:shihuang\n\n" +
+		"			 /____/ https://forum.ywhack.com  By:shihuang\n" +
+		"			                             Modified by A10ng_\n\n" +
 		"    EHole是一款对资产中重点系统指纹识别的工具，在红队作战中，信息收集\n是必不可少的环节，如何才能从大量的资产中提取有用的系统(如OA、VPN、Web\nlogic...)。EHole旨在帮助红队人员在信息收集期间能够快速从C段、大量杂乱\n的资产中精准定位到易被攻击的系统，从而实施进一步攻击。",
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
