@@ -19,7 +19,7 @@ var once sync.Once
 var AllPocs []*lib.Poc
 
 func WebScan(targets []string) {
-	lib.Inithttp(common.Pocinfo)
+	//lib.Inithttp(common.Pocinfo)
 	//fmt.Printf("-%v", info)
 	once.Do(initpoc)
 	//var pocinfo = common.Pocinfo
