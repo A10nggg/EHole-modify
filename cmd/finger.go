@@ -40,36 +40,36 @@ var fingerCmd = &cobra.Command{
 		if localfile != "" {
 			urls := removeRepeatedElement(source.LocalFile(localfile))
 			s := finger.NewScan(urls, thread, output, proxy)
-			s.StartScan(nopac)
+			s.StartScan(nopoc)
 			os.Exit(1)
 		}
 		if fofaip != "" {
 			urls := removeRepeatedElement(source.Fofaip(fofaip))
 			s := finger.NewScan(urls, thread, output, proxy)
-			s.StartScan(nopac)
+			s.StartScan(nopoc)
 			os.Exit(1)
 		}
 		if hunterip != "" {
 			urls := removeRepeatedElement(source.Hunterip(hunterip))
 			s := finger.NewScan(urls, thread, output, proxy)
-			s.StartScan(nopac)
+			s.StartScan(nopoc)
 			os.Exit(1)
 		}
 		if fofasearche != "" {
 			urls := removeRepeatedElement(source.Fafaall(fofasearche))
 			s := finger.NewScan(urls, thread, output, proxy)
-			s.StartScan(nopac)
+			s.StartScan(nopoc)
 			os.Exit(1)
 		}
 		if huntersearche != "" {
 			urls := removeRepeatedElement(source.Hunterall(huntersearche))
 			s := finger.NewScan(urls, thread, output, proxy)
-			s.StartScan(nopac)
+			s.StartScan(nopoc)
 			os.Exit(1)
 		}
 		if urla != "" {
 			s := finger.NewScan([]string{urla}, thread, output, proxy)
-			s.StartScan(nopac)
+			s.StartScan(nopoc)
 			os.Exit(1)
 		}
 
@@ -86,7 +86,7 @@ var (
 	proxy         string
 	hunterip      string
 	huntersearche string
-	nopac         bool
+	nopoc         bool
 )
 
 func init() {
@@ -101,7 +101,7 @@ func init() {
 	fingerCmd.Flags().StringVarP(&output, "output", "o", "", "输出所有结果，当前仅支持json和xlsx后缀的文件。")
 	fingerCmd.Flags().IntVarP(&thread, "thread", "t", 100, "指纹识别线程大小。")
 	fingerCmd.Flags().StringVarP(&proxy, "proxy", "p", "", "指定访问目标时的代理，支持http代理和socks5，例如：http://127.0.0.1:8080、socks5://127.0.0.1:8080")
-	fingerCmd.Flags().BoolVarP(&nopac, "nopac", "n", false, "是否开启poc扫描，默认开启，不开启请输入 -nopoc 参数")
+	fingerCmd.Flags().BoolVarP(&nopoc, "nopoc", "n", false, "是否开启poc扫描，默认开启，不开启请输入 -nopoc 参数")
 }
 
 func removeRepeatedElement(arr []string) (newArr []string) {
