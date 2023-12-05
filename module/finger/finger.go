@@ -77,7 +77,7 @@ func (s *FinScan) StartScan(nopac bool) {
 		color.RGBStyleFromString("237,64,35").Printf(fmt.Sprintf("%s", aas.Cms))
 		fmt.Printf(fmt.Sprintf(" | %s | %d | %d | %s ]\n", aas.Server, aas.Statuscode, aas.Length, aas.Title))
 	}
-	if nopac == false {
+	if nopoc == false {
 
 		color.RGBStyleFromString("244,211,49").Println("\nStart Pocscan:\n")
 		webScan.WebScan(s.Poctargets)
